@@ -146,7 +146,7 @@ Dicas e outras informações: lembrem de pensar na hierarquia das informações,
 + Inspirações: busquem exemplos em apps e plataformas que permitam adicionar e excluir itens e que tenham perfil, como Mercado Livre, AirBnB, etc.
 + Dicas e outras informações: caso desejem, outras funcionalidades e detalhes podem ser adicionados nessa página, porém levem sempre em consideração o que o usuário estará buscando ao acessar essa página.
 
-####ADICIONAR PET
+#### ADICIONAR PET
 
 **Atributos:**  
 + Foto(s) do animal - podendo ser uma ou mais fotos, sendo a critério do squad;
