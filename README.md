@@ -93,16 +93,16 @@ Lembrem-se de analisar a segurança do processo de redefinição de senha.
 + Perdidos – para pets que fugiram ou foram roubados, e possuem uma família à procura deles;
 + Adoção – para pets resgatados das ruas ou de situação de maus tratos e que estão à espera de um lar.
 + Exemplos de filtros e pesquisas que podem ser explorados (a critério do squad);
-  + Espécie de pet – cachorro, gato, rato, cavalo, papagaio, etc;
-  + Porte - pequeno, médio, grande;
-  + Sexo - macho, fêmea;
-  + Data da postagem - período que o animal foi postado (exemplo: de 13⁄10-15⁄10);
-  + Categoria - achados, perdidos, adoção;
-  + Localização - filtro por cidade, estado, distância, ou outras formas que julgarem interessantes;
-  + Nome - busca por nome do pet;  
+  + **Espécie de pet** – cachorro, gato, rato, cavalo, papagaio, etc;
+  + **Porte** - pequeno, médio, grande;
+  + **Sexo** - macho, fêmea;
+  + **Data da postagem** - período que o animal foi postado (exemplo: de 13⁄10-15⁄10);
+  + **Categoria** - achados, perdidos, adoção;
+  + **Localização** - filtro por cidade, estado, distância, ou outras formas que julgarem interessantes;
+  + **Nome** - busca por nome do pet;  
 
-As informações de cada pet que serão mostradas na página principal ficam a critério do squad.
-Fluxo e ações esperadas: Ao acessar o site, o usuário deverá conseguir navegar entre as categorias descritas,
+As informações de cada pet que serão mostradas na página principal ficam a critério do squad.  
+**Fluxo e ações esperadas:**  Ao acessar o site, o usuário deverá conseguir navegar entre as categorias descritas,
 filtrar pets quando necessário, acessar mais informações dos pets, criar cadastro e realizar login.  
 
 **Inspirações:**  
