@@ -172,7 +172,8 @@ como por exemplo: usuários não logados, logados, através da página principal
 + Excluir - excluir pet da plataforma;
 + Editar - alterar informações previamente cadastradas para determinado pet;
 + Alterar status - para metrificar a evolução dos resultados da plataforma, adicione diferentes status para cada categoria;
-+ Sugestões;
+
+**Sugestões:**  
 + Encontrados: Achei meu dono ou Estou procurando meu dono e Fui adotado por um novo dono;
 + Procura-se: Encontrei meu pet e Estou à procura;
 + Adoção: Adotado e Para adotar;  
