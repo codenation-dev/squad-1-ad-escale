@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
-import PetCard from "../../components/petCard";
+import PetCard from "../../components/PetCard";
 import AddPetButton from "../../components/AddPetButton";
 import {BottomNavigation, BottomNavigationAction} from "@material-ui/core";
 import {styled} from "@material-ui/styles";
