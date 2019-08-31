@@ -21,7 +21,8 @@ class App extends React.Component {
   state = {
     isLoggedIn: false,
     token: "",
-    searchString: ""    
+    searchString: "",
+    refresh: false,
   };
 
   
@@ -40,7 +41,6 @@ class App extends React.Component {
     });
   };
 
-  
   
   handleLogOut= (e)=>{
     e.preventDefault();
@@ -105,6 +105,7 @@ class App extends React.Component {
           <Route
             exact
             path="/"
+            forceRefresh={true}
             render={() => (
               <MainPage
                 searchString={""}

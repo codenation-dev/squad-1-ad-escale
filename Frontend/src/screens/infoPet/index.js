@@ -97,19 +97,19 @@ const InfoPet = props => {
 
   const idLog = localStorage.getItem("@buscapet-ID");
 
-  function deletePet(props) {
+  function deletePet() {
     const token = "Token " + localStorage.getItem("@buscapet-Token");
     axios
-      .delete("http://kimmikirino.pythonanywhere.com/pet/" + props, {
+      .delete("http://kimmikirino.pythonanywhere.com/pet/" + info.id, {
         headers: { Authorization: token }
       })
-      .then(back())
+      .then(function(response){
+        props.history.push("/");
+      }  
+      )
       .catch(error => console.log(error));
   }
 
-  function back() {
-    props.history.push("/");
-  }
 
   const Loading = () => {
     return (
@@ -164,7 +164,7 @@ const InfoPet = props => {
                       Descrição: {info.description}
                     </Typography>
                     <Fab
-                      onClick={e => deletePet(info.id)}
+                      onClick={e => deletePet()}
                       color="secondary"
                       disabled={idpet == idLog ? false : true}
                       aria-label="delete"

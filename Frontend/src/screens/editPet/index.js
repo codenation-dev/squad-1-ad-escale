@@ -106,8 +106,9 @@ const editPet = props => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         axios.get("https://kimmikirino.pythonanywhere.com/petfind/" + props.location.state.id + "/")
-        .then(function(response) { 
+        .then(function(response) { console.log(response)
           setName({name: response.data.name})
+          setPhoto({photo: response.data.photo})
           setValues({
             pet_type: response.data.pet_type, 
             category: response.data.category,
@@ -123,7 +124,7 @@ const editPet = props => {
 
         })
         .catch(error => console.log(error))  
-    }, [props]);
+    }, [props]); 
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const classes = useStyles();
@@ -145,12 +146,13 @@ const editPet = props => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [breed, setBreed] = React.useState({ breed: "" });
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [photo, setPhoto] = React.useState({ photo: "" });
+  const [photo, setPhoto] = React.useState();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [address, setAddress] = React.useState("");
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [locate, setLocate] = React.useState({locate: ""});
 
+  console.log(photo)
 
   function handleChange(event) {
     setValues(oldValues => ({
@@ -170,13 +172,17 @@ const editPet = props => {
     const config = {
       headers: { "content-type": "multipart/form-data", Authorization: token }
     };
+    function isFileImage(photo) {
+      return photo && photo['type'].split('/')[0] === 'image';
+    }
+
     const formData = new FormData();
     formData.append("name", name.name);
     formData.append("category", values.category);
     formData.append("status", values.status);
     formData.append("gender", values.gender);
     formData.append("breed", breed.breed);
-    formData.append("photo", photo.photo);
+    if(!isFileImage) { formData.append("photo",photo.photo) } else { };
     formData.append("size", values.size);
     formData.append("pet_type", values.pet_type);
     formData.append("location", locate.locate);
@@ -185,7 +191,9 @@ const editPet = props => {
 
     axios
       .put(url, formData, config)
-      .then(props.history.push("/"))
+      .then(function(response){
+        props.history.push("/");
+      })
       .catch(error => console.log(error));
   }
 

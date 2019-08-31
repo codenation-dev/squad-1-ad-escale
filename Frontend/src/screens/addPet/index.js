@@ -23,7 +23,7 @@ import "date-fns";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import Script from "react-load-script";
-import { prototype } from "stream";
+
 
 const useStyles = makeStyles({
   root: {
@@ -123,7 +123,7 @@ const addPet = props => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [breed, setBreed] = React.useState({ breed: "" });
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [photo, setPhoto] = React.useState({ photo: "" }); console.log(photo)
+  const [photo, setPhoto] = React.useState({ photo: "" });
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [address, setAddress] = React.useState("");
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -163,9 +163,13 @@ const addPet = props => {
 
     axios
       .post(url, formData, config)
-      .then(props.history.push("/"))
+      .then(function(response){
+        props.history.push("/");
+      }  
+      )
       .catch(error => console.log(error));
   }
+
 
   let autocomplete;
 

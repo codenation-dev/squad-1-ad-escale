@@ -102,10 +102,7 @@ class Login extends React.Component {
               </form>
             </CardContent>
             <Divider variant="middle" />
-            <CardContent>
-            <div className="g-signin2" data-onsuccess="onSignIn"></div>
-            </CardContent>
-            <Divider variant="middle" />
+             <Divider variant="middle" />
             <CardContent>
               <RouterLink style={{ textDecoration: "none" }} to="/cadastrar">
                 <this.BotaoCadastrar style={{ width: "100%" }} >Cadastrar</this.BotaoCadastrar>
