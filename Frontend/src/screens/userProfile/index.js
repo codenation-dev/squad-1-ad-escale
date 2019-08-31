@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {Link as RouterLink} from 'react-router-dom'
-import AddIcon from '@material-ui/icons/Add';
+import { Link as RouterLink } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
 import {
   Avatar,
   Typography,
@@ -11,10 +11,10 @@ import {
   Fab,
   Input
 } from "@material-ui/core";
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import SaveIcon from '@material-ui/icons/Save';
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
+import SaveIcon from "@material-ui/icons/Save";
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link, withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../../components/Logo/index.png";
@@ -70,6 +70,14 @@ const useStyles = makeStyles({
       background: "#64dd17"
     }
   },
+  addPet: {
+    margin: "10px",
+    background: "#00c853",
+    color: "#fff",
+    "&:hover": {
+      background: "#64dd17"
+    }
+  },
   fab: {
     margin: "10px"
   },
@@ -91,8 +99,7 @@ const UserProfile = props => {
     email: "",
     cellphone: "",
     name: ""
-  })
-
+  });
 
   const classes = useStyles();
 
@@ -117,7 +124,7 @@ const UserProfile = props => {
           email: response.data.email,
           cellphone: response.data.cellphone,
           name: response.data.name
-              })
+        });
       })
       .catch(error => props.history.push("/"));
   }, [props]);
@@ -205,9 +212,7 @@ const UserProfile = props => {
     );
   };
 
-  
-
-  const handleSave = (e) => {
+  const handleSave = e => {
     e.preventDefault();
     const token = "Token " + localStorage.getItem("@buscapet-Token");
     const url = "https://kimmikirino.pythonanywhere.com/user/" + info.id + "/";
@@ -219,24 +224,22 @@ const UserProfile = props => {
     formData.append("email", value.email);
     formData.append("cellphone", value.cellphone);
     formData.append("name", value.name);
-    Axios
-      .put(url, formData, config)
+    Axios.put(url, formData, config)
       .then(back())
       .catch(error => console.log(error));
-  }
+  };
 
-  const handleDelete = (e) => {
+  const handleDelete = e => {
     e.preventDefault();
     const token = "Token " + localStorage.getItem("@buscapet-Token");
     const url = "https://kimmikirino.pythonanywhere.com/user/" + info.id + "/";
-    Axios
-      .delete(url,  { headers: { Authorization: token } })
+    Axios.delete(url, { headers: { Authorization: token } })
       .then(function() {
         localStorage.clear();
         back();
       })
-      .catch(error => console.log(error))
-  }
+      .catch(error => console.log(error));
+  };
 
   function back() {
     props.history.push("/");
@@ -301,6 +304,18 @@ const UserProfile = props => {
                         >
                           <EditIcon />
                         </Fab>
+                        <RouterLink
+                          style={{ textDecoration: "none" }}
+                          to={"/adicionar-pet"}
+                        >
+                          <Fab
+                            color="primary"
+                            aria-label="add"
+                            className={classes.addPet}
+                          >
+                            <AddIcon />
+                          </Fab>
+                        </RouterLink>
                         <Fab
                           color="secondary"
                           aria-label="add"
@@ -309,6 +324,7 @@ const UserProfile = props => {
                         >
                           <PowerSettingsNewIcon />
                         </Fab>
+
                       </Grid>
                     </>
                   ) : (
@@ -317,7 +333,7 @@ const UserProfile = props => {
                         <Grid item xs>
                           <Input
                             defaultValue={value.name}
-                            onChange={e => setValue({name: e.target.value})}
+                            onChange={e => setValue({ name: e.target.value })}
                             className={classes.input}
                             inputProps={{
                               "aria-label": "name"
@@ -327,7 +343,9 @@ const UserProfile = props => {
                         <Grid item xs>
                           <Input
                             defaultValue={value.cellphone}
-                            onChange={e => setValue({cellphone: e.target.value})}
+                            onChange={e =>
+                              setValue({ cellphone: e.target.value })
+                            }
                             className={classes.input}
                             inputProps={{
                               "aria-label": "cellphone"
@@ -337,7 +355,9 @@ const UserProfile = props => {
                         <Grid item xs>
                           <Input
                             defaultValue={value.username}
-                            onChange={e => setValue({username: e.target.value})}
+                            onChange={e =>
+                              setValue({ username: e.target.value })
+                            }
                             className={classes.input}
                             inputProps={{
                               "aria-label": "username"
@@ -457,13 +477,6 @@ const UserProfile = props => {
               ) : (
                 <Loading />
               )}
-              <RouterLink
-                style={{ textDecoration: "none" }}
-                className={classes.addPet}
-                to={ "/adicionar-pet"}
-              >
-                +              
-              </RouterLink>
             </Grid>
           </CardContent>
         </Card>

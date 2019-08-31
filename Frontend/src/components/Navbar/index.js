@@ -73,7 +73,7 @@ const ButtonAppBar = props => {
                 >
             <Grid item xs={false} sm={false} md={false} lg={false}>
               <Typography variant="h6" className={classes.title}>
-                BuscaPet                
+                GetPet                
               </Typography>
             </Grid>
             </RouterLink>
