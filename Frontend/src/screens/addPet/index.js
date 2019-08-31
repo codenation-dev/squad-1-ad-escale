@@ -11,6 +11,7 @@ import {
   FormControl,
   Select,
   OutlinedInput,
+  Popover,
   MenuItem
 } from "@material-ui/core";
 import {
@@ -23,7 +24,6 @@ import "date-fns";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import Script from "react-load-script";
-
 
 const useStyles = makeStyles({
   root: {
@@ -129,7 +129,6 @@ const addPet = props => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [locate, setLocate] = React.useState("");
 
-
   function handleChange(event) {
     setValues(oldValues => ({
       ...oldValues,
@@ -163,13 +162,11 @@ const addPet = props => {
 
     axios
       .post(url, formData, config)
-      .then(function(response){
+      .then(function(response) {
         props.history.push("/");
-      }  
-      )
+      })
       .catch(error => console.log(error));
   }
-
 
   let autocomplete;
 
@@ -194,6 +191,25 @@ const addPet = props => {
       setLocate({ locate: addressObject.formatted_address });
     }
   }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [fileReader, setFileReader] = React.useState({fileReader: ""});
+
+  const handleFile = e => {
+    setFileReader({fileReader: e.target.files[0].name})
+  };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  
+    function handleClick(event) {
+      setAnchorEl(event.currentTarget);
+    }
+  
+    function handleClose() {
+      setAnchorEl(null);
+    }
+  
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
@@ -315,7 +331,9 @@ const addPet = props => {
                     >
                       <MenuItem value={"macho"}>Macho</MenuItem>
                       <MenuItem value={"fêmea"}>Fêmea</MenuItem>
-                      <MenuItem value={"não identificado"}>Não identificado</MenuItem>
+                      <MenuItem value={"não identificado"}>
+                        Não identificado
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -352,11 +370,33 @@ const addPet = props => {
                     />
                   </MuiPickersUtilsProvider>
                 </Grid>
+
                 <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                  >
+                    <Typography Style={{padding: "1rem"}}>
+                      {fileReader.fileReader}
+                    </Typography>
+                  </Popover>
                   <input
                     accept="image/*"
                     name="photo"
-                    onChange={e => setPhoto({ photo: e.target.files[0] })}
+                    onChange={e => {
+                      setPhoto({ photo: e.target.files[0] });
+                      handleFile(e);
+                    }}
                     className={classes.input}
                     style={{ display: "none" }}
                     id="raised-button-file"
@@ -365,6 +405,8 @@ const addPet = props => {
                   />
                   <label htmlFor="raised-button-file">
                     <Button
+                      onClick={handleClick}
+                      aria-describedby={id}
                       color="primary"
                       variant="raised"
                       component="span"

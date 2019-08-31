@@ -11,6 +11,7 @@ import {
   FormControl,
   Select,
   OutlinedInput,
+  Popover,
   MenuItem
 } from "@material-ui/core";
 import {
@@ -101,46 +102,49 @@ const useStyles = makeStyles({
   }
 });
 
-const editPet = props => {    
-
+const editPet = props => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        axios.get("https://kimmikirino.pythonanywhere.com/petfind/" + props.location.state.id + "/")
-        .then(function(response) { console.log(response)
-          setName({name: response.data.name})
-          setPhoto({photo: response.data.photo})
-          setValues({
-            pet_type: response.data.pet_type, 
-            category: response.data.category,
-            date: response.data.date,
-            size: response.data.size,
-            status: response.data.status,
-            gender: response.data.gender
-          })
-          setDescription({description: response.data.description})
-          setBreed({breed: response.data.breed})
-          //photo
-          setLocate({locate: response.data.location})
+  useEffect(() => {
+    axios
+      .get(
+        "https://kimmikirino.pythonanywhere.com/petfind/" +
+          props.location.state.id +
+          "/"
+      )
+      .then(function(response) {
+        setName({ name: response.data.name });
+        setPhoto({ photo: response.data.photo });
+        setValues({
+          pet_type: response.data.pet_type,
+          category: response.data.category,
+          date: response.data.date,
+          size: response.data.size,
+          status: response.data.status,
+          gender: response.data.gender
+        });
+        setDescription({ description: response.data.description });
+        setBreed({ breed: response.data.breed });
+        //photo
+        setLocate({ locate: response.data.location });
+      })
+      .catch(error => console.log(error));
+  }, [props]);
 
-        })
-        .catch(error => console.log(error))  
-    }, [props]); 
-  
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const classes = useStyles();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [selectedDate, setSelectedDate] = React.useState(new Date(Date.now()));
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [values, setValues] = React.useState({ 
+  const [values, setValues] = React.useState({
     pet_type: "",
     category: "",
     date: "",
     size: "",
     status: "",
     gender: ""
-  }); 
+  });
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [name, setName] = React.useState({ name: '' });
+  const [name, setName] = React.useState({ name: "" });
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [description, setDescription] = React.useState({ description: "" });
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -150,9 +154,7 @@ const editPet = props => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [address, setAddress] = React.useState("");
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [locate, setLocate] = React.useState({locate: ""});
-
-  console.log(photo)
+  const [locate, setLocate] = React.useState({ locate: "" });
 
   function handleChange(event) {
     setValues(oldValues => ({
@@ -168,12 +170,15 @@ const editPet = props => {
   function handleRegister(e) {
     e.preventDefault();
     const token = "Token " + localStorage.getItem("@buscapet-Token");
-    const url = "https://kimmikirino.pythonanywhere.com/pet/" + props.location.state.id + "/";
+    const url =
+      "https://kimmikirino.pythonanywhere.com/pet/" +
+      props.location.state.id +
+      "/";
     const config = {
       headers: { "content-type": "multipart/form-data", Authorization: token }
     };
     function isFileImage(photo) {
-      return photo && photo['type'].split('/')[0] === 'image';
+      return photo && photo["type"].split("/")[0] === "image";
     }
 
     const formData = new FormData();
@@ -182,7 +187,10 @@ const editPet = props => {
     formData.append("status", values.status);
     formData.append("gender", values.gender);
     formData.append("breed", breed.breed);
-    if(!isFileImage) { formData.append("photo",photo.photo) } else { };
+    if (!isFileImage) {
+      formData.append("photo", photo.photo);
+    } else {
+    }
     formData.append("size", values.size);
     formData.append("pet_type", values.pet_type);
     formData.append("location", locate.locate);
@@ -191,7 +199,7 @@ const editPet = props => {
 
     axios
       .put(url, formData, config)
-      .then(function(response){
+      .then(function(response) {
         props.history.push("/");
       })
       .catch(error => console.log(error));
@@ -221,8 +229,25 @@ const editPet = props => {
       setLocate({ locate: addressObject.formatted_address });
     }
   }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [fileReader, setFileReader] = React.useState({ fileReader: "" });
 
+  const handleFile = e => {
+    setFileReader({ fileReader: e.target.files[0].name });
+  };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
@@ -258,7 +283,7 @@ const editPet = props => {
                 <Grid item xs={12} sm={6} md={6} lg={6} xl={4}>
                   <FormControl variant="outlined" className={classes.select}>
                     <InputLabel htmlFor="outlined-age-simple">
-                     Tipo do pet
+                      Tipo do pet
                     </InputLabel>
                     <Select
                       value={values.pet_type}
@@ -344,7 +369,9 @@ const editPet = props => {
                     >
                       <MenuItem value={"macho"}>Macho</MenuItem>
                       <MenuItem value={"fêmea"}>Fêmea</MenuItem>
-                      <MenuItem value={"não identificado"}>Não identificado</MenuItem>
+                      <MenuItem value={"não identificado"}>
+                        Não identificado
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -382,18 +409,42 @@ const editPet = props => {
                   </MuiPickersUtilsProvider>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left"
+                    }}
+                    transformOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left"
+                    }}
+                  >
+                    <Typography Style={{ padding: "1rem" }}>
+                      {fileReader.fileReader}
+                    </Typography>
+                  </Popover>
+
                   <input
                     accept="image/*"
                     name="photo"
-                    onChange={e => setPhoto({ photo: e.target.files[0] })}
+                    onChange={e => {
+                      setPhoto({ photo: e.target.files[0] });
+                      handleFile(e);
+                    }}
                     className={classes.input}
                     style={{ display: "none" }}
                     id="raised-button-file"
                     multiple
                     type="file"
                   />
-                  <label style={{margin: "0"}} htmlFor="raised-button-file">
+                  <label style={{ margin: "0" }} htmlFor="raised-button-file">
                     <Button
+                      onClick={handleClick}
+                      aria-describedby={id}
                       color="primary"
                       variant="raised"
                       component="span"

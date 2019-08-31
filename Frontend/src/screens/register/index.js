@@ -12,6 +12,8 @@ import PasswordInput from "../../components/PasswordInput";
 import { styled } from "@material-ui/core/styles";
 import api from "../../services/api";
 import { login } from "../../services/auth";
+import MaskedInput from 'react-text-mask';
+import NumberFormat from 'react-number-format';
 
 class Register extends React.Component {
   state = {
@@ -143,6 +145,7 @@ class Register extends React.Component {
                   variant="outlined"
                   margin="normal"
                 />
+                
               </form>
             </CardContent>
             <CardContent>
