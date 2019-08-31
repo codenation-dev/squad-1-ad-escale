@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js" ></script>
+<script>
+  axios.defaults.headers.common['Authorization'] = 'Token 2dafc2032e6b98658ba1eef0c4b653b024984062';
+  // axios.post('http://127.0.0.1:8000/login', {
+  //   username: 'kimmi',
+  //   password: 'codenation123'
+  // }).then((a) => console.log(a))
+// Make a request for a user with a given ID
+axios.get('https://codenation-escale.herokuapp.com/pet', {
+// axios.get('http://127.0.0.1:8000/pet', {
+  headers: {
+    Authorization: 'Token 2dafc2032e6b98658ba1eef0c4b653b024984062',
+    'Access-Control-Allow-Origin': '*'
+  }
+})
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+</script>
+</body>
+</html>
