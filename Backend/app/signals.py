@@ -54,10 +54,11 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         subject="Requisição para resetar a senha de {title}".format(title="Codenation Escale Pet"),
         html_content=email_html_message)
     try:
-        sg = SendGridAPIClient('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')
-        response = sg.send(message)
-        print(response.status_code)
-        print(response.body)
-        print(response.headers)
+        #linhas comentadas para nao expor o codigo de conexão
+      # sg = SendGridAPIClient('')
+       # response = sg.send(message)
+        #print(response.status_code)
+       # print(response.body)
+       # print(response.headers)
     except Exception as e:
         print(e)
