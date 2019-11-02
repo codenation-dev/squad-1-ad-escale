@@ -9,7 +9,7 @@ django-sendgrid-v5==0.8.0
 djangorestframework==3.10.2
 future==0.17.1
 gunicorn==19.9.0
-Pillow==6.1.0
+Pillow==6.2.0
 psycopg2==2.8.3
 python-http-client==3.1.0
 pytz==2019.1
